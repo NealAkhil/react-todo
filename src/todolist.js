@@ -8,7 +8,9 @@ class Todolist extends Component{
             items:[]
         };
         this.addItem= this.addItem.bind(this);
+        this.deleteItem=this.deleteItem.bind(this);
     }
+
     addItem(e){
         if(this._inputElement.value !==""){
             const newItem={
@@ -25,6 +27,15 @@ class Todolist extends Component{
         console.log(this.state.items);
         e.preventDefault();
     }
+    deleteItem(key){
+        console.log("Key at todolist is" +key);
+        const filteredItems=this.state.items.filter(item=>{
+            return (item.key !==key);
+        });
+        this.setState({
+            items: filteredItems
+        })
+    }
     render(){
         return(
             <div className="todolist">
@@ -35,7 +46,9 @@ class Todolist extends Component{
                         <button type="submit" className="btn-todo">Add task</button>
                     </form>
                 </div>
-                <TodoItems entries={this.state.items}></TodoItems>
+                <TodoItems entries={this.state.items}
+                           delete={this.deleteItem}
+                ></TodoItems>
             </div>
         )
     }
